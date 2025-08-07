@@ -78,7 +78,7 @@ The goal of this project was to build a robust machine learning pipeline capable
 
 ---
 
-## 🔍 LIME Explainability
+##  LIME Explainability
 
 LIME provided feature-level explanations for specific predictions.  
 Top features pushing a prediction toward **Class 1** included:
