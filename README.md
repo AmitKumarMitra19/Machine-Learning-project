@@ -11,67 +11,95 @@ I have used the **Amazon Employee Access** dataset, a publicly available dataset
 - Features include both categorical and numerical data.
 - The dataset reflects a real-world enterprise security problem where access management is crucial.
 
-## Methodology
+#  Predictive Modeling Pipeline for Classification
 
-My approach follows a systematic machine learning pipeline with attention to data preprocessing, exploratory data analysis, model selection, evaluation and  explainability.
+##  Objective
 
-### Data Preprocessing & EDA
+The goal of this project was to build a robust machine learning pipeline capable of accurately predicting a binary target variable in a highly **imbalanced dataset**. Key tasks included:
 
-- Handled categorical variables through label encoding, suitable for tree ensemble models.
-- Scaled numeric features for distance-based models like KNN.
-- Performed correlation analysis and feature exploration to understand data distributions and relationships.
-- Checked for class imbalances and outliers.
+- Handling **class imbalance**  
+- Encoding **categorical variables**  
+- Treating **outliers**  
+- Comparing multiple classification models  
+- Hyperparameter tuning using **Optuna**  
+- Model interpretability via **LIME**
 
-### Model Training & Evaluation
+---
 
-I trained and compared multiple classifiers well-suited for tabular data, including:
+##  Methodology
 
+### 1. Data Preprocessing
+- **Outlier Treatment**: Used a custom `Winsorizer` transformer to clip extreme values.  
+- **Encoding**: Applied `OneHotEncoder` to categorical variables.  
+- **Scaling**: StandardScaler applied to numerical features.
+
+### 2. Class Imbalance Handling
+- Implemented **SMOTE** to balance class distribution in the training set.
+
+### 3. Model Pipelines
+- Built pipelines with:  
+  `Preprocessor ➝ SMOTE ➝ Model`  
+  using `ImbPipeline` for each classifier.
+
+### 4. Models Compared
 - K-Nearest Neighbors (KNN)  
 - Random Forest  
 - XGBoost  
-- LightGBM   
+- LightGBM  
+- CatBoost
 
-For fair comparison, each model was evaluated on a hold-out validation set using these metrics:
+### 5. Hyperparameter Tuning
+- Used **Optuna** to tune model hyperparameters via 3-fold stratified cross-validation.  
+- Evaluation metric: **ROC AUC**
 
-- **Accuracy:** Proportion of correct predictions.  
-- **ROC AUC:** Measure of model discrimination between classes.  
-- **F1 Score:** Harmonic mean of precision and recall, robust under class imbalance.
+### 6. Evaluation Metrics
+- ROC AUC Score  
+- Classification Report  
+- ROC Curve Visualization  
+- Model Leaderboard
 
-### Dimensionality Reduction
+### 7. Model Explainability
+- Used **LIME** to explain individual predictions from the top model.  
+- Provided insights into feature contributions at a local level.
 
-- Applied Principal Component Analysis (PCA) for KNN to reduce dimensionality and improve performance.
-- Determined PCA was not required for tree-based models due to their native handling of high-dimensional data.
+---
 
-### Explainability
+## 🏆 Leaderboard (Post-Optimization)
 
-- Used **LIME** for local interpretability, focusing on explaining model predictions at an individual employee request level.
-- These explainability tool helps building trust and auditability critical for security-focused applications.
+| Model         | ROC AUC  |
+|---------------|----------|
+| XGBoost       | 0.842639 |
+| LightGBM      | 0.835333 |
+| Random Forest | 0.834310 |
+| CatBoost      | 0.811128 |
+| KNN           | 0.754293 |
 
+>  **XGBoost** was selected as the best-performing model after optimization.
 
-## Key Findings
+---
 
-| Model          | Train Accuracy | Validation Accuracy | Train ROC AUC | Validation ROC AUC | Validation F1 Score |
-|----------------|----------------|---------------------|---------------|--------------------|---------------------|
-| KNN            | 0.9490         | 0.9382              | 0.9485        | 0.7006             | 0.9679              |
-| Random Forest  | 0.9421         | 0.9442              | 0.7665        | 0.7234             | 0.9713              |
-| XGBoost        | **0.9660**     | 0.9513              | **0.9824**    | 0.8415             | **0.9747**          |
-| LightGBM       | 0.9540         | **0.9493**          | 0.9563        | **0.8483**         | 0.9738              |
+## 🔍 LIME Explainability
 
-- **XGBoost** and **LightGBM** outperformed other models, achieving the best balance of accuracy, ROC AUC, and F1 score on validation data.
-- **KNN** had a noticeable drop in ROC AUC on validation, indicating less robust generalization.
-- Tree ensemble model demonstrated superior ability to capture nonlinear relationships and complex patterns.
+LIME provided feature-level explanations for specific predictions.  
+Top features pushing a prediction toward **Class 1** included:
 
-## Business Impact
+- `feature_3` (e.g., > -0.03)  
+- `feature_5` (e.g., > -0.19)  
+- `feature_4` (e.g., > 0.16)  
+- and more...
 
-The deployment of this machine learning pipeline will enable:
+This helps validate **why the model predicts a positive class**, essential for regulatory and business transparency.
 
-- **Automated and consistent employee access approval decisions.**  
-- **Increased operational efficiency** by reducing manual review overhead.  
-- **Improved security posture** through data-driven, auditable access control.  
-- **Explainable AI compliance** via LIME ,essential for trusted enterprise adoption.
+---
+
+##  Business Impact
+
+- **Better Decision-Making**: Increased recall and reduced false negatives on the minority class.  
+- **Regulatory Compliance**: Model explanations enhance interpretability and trust.  
+- **Production Readiness**: Optimized models are scalable and deployable in real-world settings.
 
 
 ---
 
-*Project developed by [Amit Kumar Mitra]*  
-
+*Project by: [Amit Kumar Mitra]*  
+*Date: August 2025*
