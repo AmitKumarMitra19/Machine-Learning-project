@@ -29,7 +29,7 @@ The goal of this project was to build a robust machine learning pipeline capable
 ##  Methodology
 
 ### 1. Data Preprocessing
-- **Outlier Treatment**: Used a custom `Winsorizer` transformer to clip extreme values.  
+- **Outlier Treatment**: Used a custom `Winsorizer` transformer to clip extreme values. 
 - **Encoding**: Applied `OneHotEncoder` to categorical variables.  
 - **Scaling**: StandardScaler applied to numerical features.
 
