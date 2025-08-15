@@ -81,7 +81,7 @@ The goal of this project was to build a robust machine learning pipeline capable
 ##  LIME Explainability
 
 LIME provided feature-level explanations for specific predictions.  
-Top features pushing a prediction toward **Class 1** included:
+Top features pushing a prediction toward **Class 1**.
 
 
 This helps validate **why the model predicts a positive class**, essential for regulatory and business transparency.
