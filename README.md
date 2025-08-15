@@ -68,11 +68,11 @@ The goal of this project was to build a robust machine learning pipeline capable
 
 | Model         | ROC AUC  |
 |---------------|----------|
-| XGBoost       | 0.842639 |
-| LightGBM      | 0.835333 |
-| Random Forest | 0.834310 |
-| CatBoost      | 0.811128 |
-| KNN           | 0.754293 |
+| XGBoost       | 0.845087 |
+| LightGBM      | 0.844625 |
+| Random Forest | 0.842498 |
+| CatBoost      | 0.822498 |
+| KNN           | 0.769888 |
 
 >  **XGBoost** was selected as the best-performing model after optimization.
 
@@ -83,10 +83,6 @@ The goal of this project was to build a robust machine learning pipeline capable
 LIME provided feature-level explanations for specific predictions.  
 Top features pushing a prediction toward **Class 1** included:
 
-- `feature_3` (e.g., > -0.03)  
-- `feature_5` (e.g., > -0.19)  
-- `feature_4` (e.g., > 0.16)  
-- and more...
 
 This helps validate **why the model predicts a positive class**, essential for regulatory and business transparency.
 
