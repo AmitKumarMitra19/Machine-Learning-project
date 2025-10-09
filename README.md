@@ -94,6 +94,10 @@ This helps validate **why the model predicts a positive class**, essential for r
 - **Regulatory Compliance**: Model explanations enhance interpretability and trust.  
 - **Production Readiness**: Optimized models are scalable and deployable in real-world settings.
 
+## Project Deployment
+
+Streamlit App link : https://app-amazon-access-predictor.streamlit.app/
+
 
 ---
 
